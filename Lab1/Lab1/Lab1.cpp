@@ -27,6 +27,13 @@ bool IsDigit(char symbol)
 	{
 		return true;
 	}
+	else
+	{
+		if (symbol == '-')
+		{
+			return true;
+		}
+	}
 	
 	return false;
 }
