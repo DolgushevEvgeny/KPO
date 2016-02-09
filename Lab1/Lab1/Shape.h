@@ -8,8 +8,8 @@ public:
 	virtual ~CShape();
 
 	virtual std::string GetInformation();
-	virtual double GetPerimetr() const;
-	virtual double GetSquare() const;
+	virtual int GetPerimetr() const;
+	virtual int GetSquare() const;
 	virtual std::string GetType() const;
 
 protected:

@@ -9,7 +9,7 @@ public:
 	~CRectangle();
 
 private:
-	double m_sideA;
-	double m_sideB;
+	int m_sideA;
+	int m_sideB;
 };
 

@@ -9,6 +9,6 @@ public:
 	~CCircle();
 
 private:
-	double m_radius;
+	int m_radius;
 };
 

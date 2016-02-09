@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <tchar.h>
 
+#include <iomanip>
 
 
 // TODO: Установите здесь ссылки на дополнительные заголовки, требующиеся для программы

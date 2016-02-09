@@ -246,31 +246,6 @@ void ReadFile()
 
 int main(int argc, char* argv[])
 {
-	{
-		Point a{ 100, 100 };
-		Point b{ 100, 400 };
-		Point c{ 500, 100 };
-
-		CTriangle test(a, b, c);
-		double P = test.GetPerimetr();
-		double S = test.GetSquare();
-	}
-	{
-		Point a{ 100, 100 };
-		Point b{ 400, 400 };
-
-		CRectangle test(a, b);
-		double P = test.GetPerimetr();
-		double S = test.GetSquare();
-	}
-	{
-		Point a{ 100, 100 };
-
-		CCircle test(a, 50);
-		double P = test.GetPerimetr();
-		double S = test.GetSquare();
-	}
-
 	ReadFile();
 	return 0;
 }

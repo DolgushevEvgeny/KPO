@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Shape.h"
 
+using namespace std;
 
 CShape::CShape()
 {
@@ -16,14 +17,14 @@ std::string CShape::GetInformation()
 	return GetType() + ": P=" + std::to_string(GetPerimetr()) + "; S=" + std::to_string(GetSquare());
 }
 
-double CShape::GetPerimetr() const
+int CShape::GetPerimetr() const
 {
-	return m_perimetr;
+	return (int)m_perimetr;
 }
 
-double CShape::GetSquare() const
+int CShape::GetSquare() const
 {
-	return m_square;
+	return (int)m_square;
 }
 
 std::string CShape::GetType() const
