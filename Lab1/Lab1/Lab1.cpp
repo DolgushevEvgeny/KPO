@@ -5,12 +5,14 @@
 #include "Triangle.h"
 #include "Rectangle.h"
 #include "Circle.h"
+#include "Shape.h"
 #include <cmath>
 #include <sstream>
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <vector>
+#include <memory>
 
 enum SHAPETYPE
 {
@@ -117,6 +119,8 @@ SHAPETYPE GetShapeType(const string &input, size_t &index)
 			}
 		}
 	}
+
+	throw std::exception();
 }
 
 double ParseRadius(const string &line)
@@ -136,7 +140,7 @@ double ParseRadius(const string &line)
 	return FromStrToDouble(radius);
 }
 
-CTriangle CreateTriangle(const string &input, size_t &index)
+shared_ptr<CShape> CreateTriangle(const string &input, size_t &index)
 {
 	string source = input.substr(index, input.length() - index);
 	vector<string> array1;
@@ -154,10 +158,10 @@ CTriangle CreateTriangle(const string &input, size_t &index)
 	}
 	
 	CTriangle triangle(points[0], points[1], points[2]);
-	return triangle;
+	return make_shared<CTriangle>(triangle);
 }
 
-CRectangle CreateRectangle(const string &input, size_t &index)
+shared_ptr<CShape> CreateRectangle(const string &input, size_t &index)
 {
 	string source = input.substr(index, input.length() - index);
 	vector<string> array1;
@@ -175,10 +179,10 @@ CRectangle CreateRectangle(const string &input, size_t &index)
 	}
 
 	CRectangle rectangle(points[0], points[1]);
-	return rectangle;
+	return make_shared<CRectangle>(rectangle);
 }
 
-CCircle CreateCircle(const string &input, size_t &index)
+shared_ptr<CShape> CreateCircle(const string &input, size_t &index)
 {
 	string source = input.substr(index, input.length() - index);
 	vector<string> array1;
@@ -193,29 +197,27 @@ CCircle CreateCircle(const string &input, size_t &index)
 	double radius = ParseRadius(array1[1]);
 
 	CCircle circle(point, radius);
-	return circle;
+	return make_shared<CCircle>(circle);
 }
 
 void GetInformation(const string &input, size_t &index, SHAPETYPE type, ofstream &output)
 {
+	shared_ptr<CShape> figure;
+	
 	if (type == SHAPETYPE::TRIANGLE)
 	{
-		CTriangle triangle = CreateTriangle(input, index);
-		output << triangle.GetInformation() << endl;
-		return;
+		figure = CreateTriangle(input, index);
 	}
 	if (type == SHAPETYPE::RECTANGLE)
 	{
-		CRectangle rectangle = CreateRectangle(input, index);
-		output << rectangle.GetInformation() << endl;
-		return;
+		figure = CreateRectangle(input, index);
 	}
 	if (type == SHAPETYPE::CIRCLE)
 	{
-		CCircle circle = CreateCircle(input, index);
-		output << circle.GetInformation() << endl;
-		return;
+		figure = CreateCircle(input, index);
 	}
+
+	output << figure->GetInformation() << endl;
 }
 
 
