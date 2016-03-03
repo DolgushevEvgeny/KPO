@@ -13,14 +13,14 @@ using namespace std;
 
 void Sum(CLongNumber num1, CLongNumber num2, CParser parser)
 {
-	CLongNumber result(CLongNumber(parser.GetNumbers().first) + CLongNumber(parser.GetNumbers().second));
+	CLongNumber result(num1 + num2);
 
 	int i = 0;
 }
 
 void Sub(CLongNumber num1, CLongNumber num2, CParser parser)
 {
-	CLongNumber result(CLongNumber(parser.GetNumbers().first) - CLongNumber(parser.GetNumbers().second));
+	CLongNumber result(num1 - num2);
 
 	int i = 0;
 }
@@ -57,7 +57,7 @@ int main(int argc, char* argv[])
 		switch ((int)parser.GetOperation())
 		{
 		case 43: Sum(CLongNumber(parser.GetNumbers().first), CLongNumber(parser.GetNumbers().second), parser); break;
-		case 45: break;
+		case 45: Sub(CLongNumber(parser.GetNumbers().first), CLongNumber(parser.GetNumbers().second), parser); break;
 		case 42: break;
 		case 47: break;
 		}

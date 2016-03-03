@@ -12,7 +12,6 @@ public:
 	bool GetNumberSymbol() const;
 
 	void SetNumberSymbol(bool isPositive);
-	
 private:
 	bool m_isPositive;
 	size_t m_size;
@@ -27,3 +26,4 @@ const CLongNumber operator / (const CLongNumber &num1, const CLongNumber &num2);
 size_t GetNewSize(const size_t &size_a, const size_t &size_b);
 void InitArray(size_t length, std::vector<int> &number);
 void DropZeros();
+void SumVectors(const std::vector<int> &first, const std::vector<int> &second, std::vector<int> &result, size_t length);
