@@ -205,9 +205,29 @@ const CLongNumber operator - (const CLongNumber &num1, const CLongNumber &num2)
 
 const CLongNumber operator * (const CLongNumber &num1, const CLongNumber &num2)
 {
-	pair<vector<int>, bool> result;
+	vector<int> first = num1.GetVector();
+	vector<int> second = num2.GetVector();
+	size_t length = num1.GetSize() + num2.GetSize() + 1;
 
-	return result;
+	pair<vector<int>, bool> result;
+	result.second = true;
+	InitArray(length, result.first);
+
+	reverse(first.begin(), first.end());
+	reverse(second.begin(), second.end());
+	for (size_t i = 0; i < first.size(); ++i)
+	{
+		for (size_t j = 0, carry = 0; j < second.size() || carry; ++j)
+		{
+			long long cur = result.first[i + j] + first[i] * 1ll * (j < second.size() ? second[j] : 0) + carry;
+			result.first[i + j] = int(cur % 10);
+			carry = int(cur / 10);
+		}
+	}
+
+	DropZeros(result.first);
+	reverse(result.first.begin(), result.first.end());
+	return (CLongNumber)result;
 }
 
 const CLongNumber operator / (const CLongNumber &num1, const CLongNumber &num2)
