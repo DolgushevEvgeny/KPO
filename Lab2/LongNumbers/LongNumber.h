@@ -33,6 +33,7 @@ const bool operator < (const CLongNumber &num1, const CLongNumber &num2);
 const bool operator > (const CLongNumber &num1, const CLongNumber &num2);
 const bool operator <= (const CLongNumber &num1, const CLongNumber &num2);
 const bool operator >= (const CLongNumber &num1, const CLongNumber &num2);
+const bool operator == (const CLongNumber &num1, const CLongNumber &num2);
 
 size_t GetNewSize(const size_t &size_a, const size_t &size_b);
 void InitArray(size_t length, std::vector<int> &number);

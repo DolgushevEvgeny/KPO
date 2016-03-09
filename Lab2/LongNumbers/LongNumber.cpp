@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include <vector>
+#include <string>
 #include "LongNumber.h"
 #include <algorithm>
 #include <functional>
@@ -9,7 +10,7 @@ using namespace std;
 CLongNumber::CLongNumber()
 : m_num({ 0 })
 , m_size(1)
-, m_isPositive(false)
+, m_isPositive(true)
 {
 }
 
@@ -40,11 +41,15 @@ CLongNumber::~CLongNumber()
 string CLongNumber::ToString()
 {
 	string result = "";
+	
 	for (size_t i = 0; i < m_num.size(); ++i)
 	{
-		//result = to_string(m_num[i]) + result;
+		result = to_string(m_num[i]) + result;
 	}
-
+	if (!m_isPositive)
+	{
+		result = "-" + result;
+	}
 	return result;
 }
 
@@ -163,7 +168,7 @@ const CLongNumber operator + (const CLongNumber &num1, const CLongNumber &num2)
 	}
 
 	DropZeros(result.first);
-	reverse(result.first.begin(), result.first.end());
+	//reverse(result.first.begin(), result.first.end());
 	return (CLongNumber)result;
 }
 
@@ -230,25 +235,35 @@ int MatchingNumbers(const vector<int> &first, const vector<int> &second, size_t 
 
 const CLongNumber operator - (const CLongNumber &num1, const CLongNumber &num2)
 {
+	if (num1.GetSize() == 1 && num1.GetVector()[0] == 0)
+	{
+		pair<vector<int>, bool> result;
+		result.second = false;
+		result.first = num2.GetVector();
+		return result;
+	}
+	if (num2.GetSize() == 1 && num2.GetVector()[0] == 0)
+	{
+		return num1;
+	}
+
 	vector<int> first = num1.GetVector();
 	vector<int> second = num2.GetVector();
-	//size_t length = GetNewSize(num1.GetSize(), num2.GetSize());
 	size_t minLength = num1.GetSize() > num2.GetSize() ? num2.GetSize() : num1.GetSize();
 
-	size_t length = num1.GetSize();//
-
 	pair<vector<int>, bool> result;
-	InitArray(length, result.first);
-
+	
 	//reverse(first.begin(), first.end());
 	//reverse(second.begin(), second.end());
 	if (num1 > num2)
 	{
 		//reverse(first.begin(), first.end());
 		//reverse(second.begin(), second.end());
+		size_t length = num1.GetSize();
+		InitArray(length, result.first);
 		Subst(first, second, result.first, length);
 		result.second = true;
-		AddLeftOver(num1.GetVector(), result.first, minLength + 1, length + 1);
+		AddLeftOver(num1.GetVector(), result.first, minLength + 1, length);
 	}
 	else
 	{
@@ -256,23 +271,26 @@ const CLongNumber operator - (const CLongNumber &num1, const CLongNumber &num2)
 		{
 			//reverse(first.begin(), first.end());
 			//reverse(second.begin(), second.end());
+			size_t length = num2.GetSize();
+			InitArray(length, result.first);
 			Subst(second, first, result.first, length);
 			result.second = false;
-			AddLeftOver(num2.GetVector(), result.first, minLength + 1, length + 1);
+			AddLeftOver(num2.GetVector(), result.first, minLength + 1, length);
 		}
 		else
 		{
 			//reverse(first.begin(), first.end());
 			//reverse(second.begin(), second.end());
+			size_t length = num2.GetSize();
+			InitArray(length, result.first);
 			Subst(second, first, result.first, length);
 			result.second = false;
 			AddLeftOver(num2.GetVector(), result.first, minLength, length + 1);
 		}
-		
 	}
 	
 	DropZeros(result.first);
-	reverse(result.first.begin(), result.first.end());
+	//reverse(result.first.begin(), result.first.end());
 	return (CLongNumber)result;
 }
 
@@ -297,14 +315,14 @@ const CLongNumber operator * (const CLongNumber &num1, const CLongNumber &num2)
 	}
 
 	DropZeros(result.first);
-	reverse(result.first.begin(), result.first.end());
+	//reverse(result.first.begin(), result.first.end());
 	return (CLongNumber)result;
 }
 
 const CLongNumber operator / (const CLongNumber &num1, const CLongNumber &num2)
 {
 	unsigned int count = 0;
-	pair<vector<int>, bool> result;
+	//pair<vector<int>, bool> result;
 	CLongNumber curValue;
 	
 	if (num2.GetVector().size() == 1 && num2.GetVector()[0] == 0)
@@ -312,7 +330,7 @@ const CLongNumber operator / (const CLongNumber &num1, const CLongNumber &num2)
 		throw runtime_error("Division by zero");
 	}
 	//ToDo делитель больше делимого
-	if (false)
+	if (num2 > num1)
 	{
 		return (CLongNumber)count;
 	}
@@ -321,17 +339,16 @@ const CLongNumber operator / (const CLongNumber &num1, const CLongNumber &num2)
 	CLongNumber second = num2;
 	size_t length = num1.GetSize() + num2.GetSize() + 1;
 
-	result.second = true;
-	InitArray(length, result.first);
+	//result.second = true;
+	//InitArray(length, result.first);
 
-	//curValue = first;
 	while (curValue < first)
 	{
 		curValue = curValue + second;
 		if (curValue.GetVector().size() > 1)
 		{
 			vector<int> tmp = curValue.GetVector();
-			reverse(tmp.begin(), tmp.end());
+			//reverse(tmp.begin(), tmp.end());
 			tmp.resize(tmp.size() + 1);
 			curValue.SetVector(tmp);
 			
@@ -339,45 +356,16 @@ const CLongNumber operator / (const CLongNumber &num1, const CLongNumber &num2)
 		}
 		++count;
 	}
-
-	return (CLongNumber)count;
-
-
-	/*reverse(first.begin(), first.end());
-	reverse(second.begin(), second.end());
-	for (size_t i = first.size() - 1; i > 0; --i)
+	if (curValue > first)
 	{
-		Increase(curValue.first);
-		curValue.first[0] = first[i];
-		int multiplier = 0;
-		int lowerBound = 0;
-		int upperBound = 10;
-
-		while (lowerBound <= upperBound)
-		{
-			int m = (lowerBound + upperBound) / 2;
-			CLongNumber cur(num2 * m);
-			if (cur.GetVector() <= curValue.first)
-			{
-				multiplier = m;
-				lowerBound = m + 1;
-			}
-			else
-			{
-				upperBound = m - 1;
-			}
-		}
-
-		result.first[i] = multiplier;
-		curValue.first = (CLongNumber(curValue) - (num2 * multiplier)).GetVector();//curValue.first - (num2 * multiplier).GetVector();
+		--count;
 	}
-
-	DropZeros(result.first);
-	return result;*/
+	return count;
 }
 
 const bool operator < (const CLongNumber &num1, const CLongNumber &num2)
 {
+	size_t i = 0;
 	if (num1.GetSize() < num2.GetSize())
 	{
 		return true;
@@ -388,7 +376,7 @@ const bool operator < (const CLongNumber &num1, const CLongNumber &num2)
 	}
 	if (num1.GetSize() == num2.GetSize())
 	{
-		for (size_t i = 0; i < num1.GetVector().size() - 1; ++i)
+		for (i = num2.GetVector().size() - 1; i < -1; --i)
 		{
 			if (num1.GetVector()[i] < num2.GetVector()[i])
 			{
@@ -406,6 +394,7 @@ const bool operator < (const CLongNumber &num1, const CLongNumber &num2)
 
 const bool operator > (const CLongNumber &num1, const CLongNumber &num2)
 {
+	size_t i = 0;
 	if (num1.GetSize() > num2.GetSize())
 	{
 		return true;
@@ -416,7 +405,7 @@ const bool operator > (const CLongNumber &num1, const CLongNumber &num2)
 	}
 	if (num1.GetSize() == num2.GetSize())
 	{
-		for (size_t i = 0; i < num1.GetVector().size() - 1; ++i)
+		for (i = num2.GetVector().size() - 1; i < -1; --i)
 		{
 			if (num1.GetVector()[i] > num2.GetVector()[i])
 			{
@@ -440,6 +429,16 @@ const bool operator <= (const CLongNumber &num1, const CLongNumber &num2)
 const bool operator >= (const CLongNumber &num1, const CLongNumber &num2)
 {
 	return !(num1 < num2);
+}
+
+const bool operator == (const CLongNumber &num1, const CLongNumber &num2)
+{
+	if (num1.GetSize() == num2.GetSize())
+	{
+		return equal(num1.GetVector().begin(), num1.GetVector().end(), num2.GetVector().begin(), equal_to<unsigned>());
+	}
+
+	return false;
 }
 
 void Increase(vector<int> &num)
