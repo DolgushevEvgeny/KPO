@@ -41,7 +41,7 @@ void Div(CLongNumber num1, CLongNumber num2, CParser parser, ofstream &output)
 		result = num1 / num2;
 		output << num1.ToString() << " " << parser.GetOperation() << " " << num2.ToString() << " = " << result.ToString() << endl;
 	}
-	catch (const std::runtime_error &e)
+	catch (const runtime_error &e)
 	{
 		output << e.what() << endl;
 	}
@@ -129,7 +129,8 @@ void Test()
 		CLongNumber result(CLongNumber(num1) * CLongNumber(num2));
 
 		vector<int> test = { 5, 9, 7, 5, 6, 3, 9, 8, 5, 8, 7, 3, 5, 7, 6, 9, 3, 4, 7, 4 };
-		//assert(result.GetVector() == test);
+		reverse(test.begin(), test.end());
+		assert(result.GetVector() == test);
 	}
 	{
 		pair<vector<int>, bool> num1;
@@ -144,7 +145,8 @@ void Test()
 
 		CLongNumber result(CLongNumber(num1) * CLongNumber(num2));
 		vector<int> test = { 5, 9, 7, 5, 6, 3, 9, 7, 9, 9, 5, 7, 6, 9, 3, 4, 7, 4 };
-		//assert(result.GetVector() == test);
+		reverse(test.begin(), test.end());
+		assert(result.GetVector() == test);
 	}
 	{
 		pair<vector<int>, bool> num1;
@@ -159,7 +161,7 @@ void Test()
 
 		CLongNumber result(CLongNumber(num1) * CLongNumber(num2));
 		vector<int> test = { 0 };
-		//assert(result.GetVector() == test);
+		assert(result.GetVector() == test);
 	}
 	{
 		pair<vector<int>, bool> num1;
@@ -204,6 +206,7 @@ void Test()
 
 		CLongNumber result(CLongNumber(num1) / CLongNumber(num2));
 		vector<int> test = { 2, 5, 6, 8 };
+		reverse(test.begin(), test.end());
 		assert(result.GetVector() == test);
 	}
 	{
@@ -217,9 +220,15 @@ void Test()
 		num2.second = true;
 		reverse(num2.first.begin(), num2.first.end());
 
-		CLongNumber result(CLongNumber(num1) / CLongNumber(num2));
-		vector<int> test = { 2, 5, 6, 8 };
-		assert(result.GetVector() == test);
+		CLongNumber result;
+		try
+		{
+			result = CLongNumber(num1) / CLongNumber(num2);
+		}
+		catch (const runtime_error &e)
+		{
+			cout << e.what() << endl;
+		}
 	}
 }
 
@@ -231,7 +240,7 @@ int main(int argc, char* argv[])
 	ofstream outputFile;
 	outputFile.open("output.txt", ofstream::out);
 
-	//Test();
+	Test();
 
 	while (inputFile.good())
 	{

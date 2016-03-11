@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 
-class CLongNumber final
+class CLongNumber
 {
 public:
 	CLongNumber();
@@ -11,32 +11,27 @@ public:
 
 	CLongNumber& operator = (const CLongNumber &other);
 
+	const CLongNumber operator + (CLongNumber const & other) const;
+	const CLongNumber operator - (CLongNumber const & other) const;
+	const CLongNumber operator * (CLongNumber const & other) const;
+	const CLongNumber operator / (const CLongNumber &other) const;
+
+	bool const operator > (CLongNumber const & other) const;
+	bool const operator <= (CLongNumber const & other) const;
+
 	size_t GetSize() const;
 	std::vector<int> GetVector() const;
-	bool GetNumberSymbol() const;
-	void SetVector(std::vector<int> num);
 	std::string ToString();
 
-	void SetNumberSymbol(bool isPositive);
+	unsigned GetLevel(const size_t arg) const;
 private:
+	void Increase();
+	void DropZeros();
 	bool m_isPositive;
 	size_t m_size;
 	std::vector<int> m_num;
 };
 
-const CLongNumber operator + (const CLongNumber &num1, const CLongNumber &num2);
-const CLongNumber operator - (const CLongNumber &num1, const CLongNumber &num2);
-const CLongNumber operator * (const CLongNumber &num1, const CLongNumber &num2);
-const CLongNumber operator / (const CLongNumber &num1, const CLongNumber &num2);
-
 const bool operator < (const CLongNumber &num1, const CLongNumber &num2);
-const bool operator > (const CLongNumber &num1, const CLongNumber &num2);
-const bool operator <= (const CLongNumber &num1, const CLongNumber &num2);
 const bool operator >= (const CLongNumber &num1, const CLongNumber &num2);
 const bool operator == (const CLongNumber &num1, const CLongNumber &num2);
-
-size_t GetNewSize(const size_t &size_a, const size_t &size_b);
-void InitArray(size_t length, std::vector<int> &number);
-void DropZeros();
-void Increase(std::vector<int> &num);
-void SumVectors(const std::vector<int> &first, const std::vector<int> &second, std::vector<int> &result, size_t length);
