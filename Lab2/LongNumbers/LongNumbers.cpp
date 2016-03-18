@@ -2,13 +2,7 @@
 //
 
 #include "stdafx.h"
-#include <assert.h>
-#include <fstream>
-#include <iostream>
-#include <vector>
-#include <string>
-#include "Parser.h"
-#include "LongNumber.h"
+
 
 using namespace std;
 
@@ -16,21 +10,21 @@ void Sum(CLongNumber num1, CLongNumber num2, CParser parser, ofstream &output)
 {
 	CLongNumber result = num1 + num2;
 
-	output << num1.ToString() << " " << parser.GetOperation() << " " << num2.ToString() << " = " << result.ToString() << endl;
+	output << num1.ToString() << " " << "+" << " " << num2.ToString() << " = " << result.ToString() << endl;
 }
 
 void Sub(CLongNumber num1, CLongNumber num2, CParser parser, ofstream &output)
 {
  	CLongNumber result = num1 - num2;
 
-	output << num1.ToString() << " " << parser.GetOperation() << " " << num2.ToString() << " = " << result.ToString() << endl;
+	output << num1.ToString() << " " << "-" << " " << num2.ToString() << " = " << result.ToString() << endl;
 }
 
 void Mult(CLongNumber num1, CLongNumber num2, CParser parser, ofstream &output)
 {
 	CLongNumber result = num1 * num2;
 
-	output << num1.ToString() << " " << parser.GetOperation() << " " << num2.ToString() << " = " << result.ToString() << endl;
+	output << num1.ToString() << " " << "*" << " " << num2.ToString() << " = " << result.ToString() << endl;
 }
 
 void Div(CLongNumber num1, CLongNumber num2, CParser parser, ofstream &output)
@@ -39,7 +33,7 @@ void Div(CLongNumber num1, CLongNumber num2, CParser parser, ofstream &output)
 	try
 	{
 		result = num1 / num2;
-		output << num1.ToString() << " " << parser.GetOperation() << " " << num2.ToString() << " = " << result.ToString() << endl;
+		output << num1.ToString() << " " << "/" << " " << num2.ToString() << " = " << result.ToString() << endl;
 	}
 	catch (const runtime_error &e)
 	{
@@ -63,7 +57,8 @@ void Test()
 		CLongNumber result = (CLongNumber(num1) + CLongNumber(num2));
 
 		vector<int> test = { 1, 5, 6, 3, 0, 1, 2, 6, 4, 5, 5 };
-		//assert(result.GetVector() == test);
+		reverse(test.begin(), test.end());
+		assert(result.GetVector() == test);
 	}
 	{
 		pair<vector<int>, bool> num1;
@@ -79,7 +74,8 @@ void Test()
 		CLongNumber result = (CLongNumber(num1) - CLongNumber(num2));
 
 		vector<int> test = { 3, 7, 3, 2, 4, 7, 2, 3, 3, 2 };
-		//assert(result.GetVector() == test);
+		reverse(test.begin(), test.end());
+		assert(result.GetVector() == test);
 	}
 	{
 		pair<vector<int>, bool> num1;
@@ -92,7 +88,7 @@ void Test()
 		num2.second = true;
 		reverse(num2.first.begin(), num2.first.end());
 
-		CLongNumber result = (CLongNumber(num1) - CLongNumber(num2));
+		CLongNumber result = CLongNumber(num1) - CLongNumber(num2);
 
 		vector<int> test = { 1, 5, 5, 1, 1, 1, 4, 9, 9, 1, 4 };
 		reverse(test.begin(), test.end());
@@ -109,7 +105,7 @@ void Test()
 		num2.second = true;
 		reverse(num2.first.begin(), num2.first.end());
 
-		CLongNumber result = (CLongNumber(num1) - CLongNumber(num2));
+		CLongNumber result = CLongNumber(num1) - CLongNumber(num2);
 
 		vector<int> test = { 1, 5, 5, 1, 1, 1, 4, 9, 9, 1, 4 };
 		reverse(test.begin(), test.end());
@@ -240,7 +236,7 @@ int main(int argc, char* argv[])
 	ofstream outputFile;
 	outputFile.open("output.txt", ofstream::out);
 
-	Test();
+	//Test();
 
 	while (inputFile.good())
 	{
@@ -248,13 +244,12 @@ int main(int argc, char* argv[])
 		getline(inputFile, inputLine);
 
 		CParser parser(inputLine);
-
-		switch ((int)parser.GetOperation())
+		switch (parser.GetOperation())
 		{
-		case 43: Sum(CLongNumber(parser.GetNumbers().first), CLongNumber(parser.GetNumbers().second), parser, outputFile); break;
-		case 45: Sub(CLongNumber(parser.GetNumbers().first), CLongNumber(parser.GetNumbers().second), parser, outputFile); break;
-		case 42: Mult(CLongNumber(parser.GetNumbers().first), CLongNumber(parser.GetNumbers().second), parser, outputFile); break;
-		case 47: Div(CLongNumber(parser.GetNumbers().first), CLongNumber(parser.GetNumbers().second), parser, outputFile); break;
+		case Operation::ADDITION: Sum(CLongNumber(parser.GetNumbers().first), CLongNumber(parser.GetNumbers().second), parser, outputFile); break;
+		case Operation::SUBSTRACTION: Sub(CLongNumber(parser.GetNumbers().first), CLongNumber(parser.GetNumbers().second), parser, outputFile); break;
+		case Operation::MULTIPLICATION: Mult(CLongNumber(parser.GetNumbers().first), CLongNumber(parser.GetNumbers().second), parser, outputFile); break;
+		case Operation::DIVISION: Div(CLongNumber(parser.GetNumbers().first), CLongNumber(parser.GetNumbers().second), parser, outputFile); break;
 		}
 	}
 

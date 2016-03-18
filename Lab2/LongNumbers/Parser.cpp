@@ -27,7 +27,14 @@ void CParser::Parse(const string &input)
 		numbers.push_back(number);
 	}
 
-	m_operation = numbers[1][0];
+	switch ((int)numbers[1][0])
+	{
+	case 43: m_operation = Operation::ADDITION; break;
+	case 45: m_operation = Operation::SUBSTRACTION; break;
+	case 42: m_operation = Operation::MULTIPLICATION; break;
+	case 47: m_operation = Operation::DIVISION; break;
+	}
+
 	m_num1.second = true;
 	m_num2.second = true;
 	m_num1 = ParseNumber(numbers[0]);
@@ -89,7 +96,7 @@ pair<pair<vector<int>, bool>, pair<vector<int>, bool>> CParser::GetNumbers() con
 	return numbers;
 }
 
-char CParser::GetOperation() const
+Operation CParser::GetOperation() const
 {
 	return m_operation;
 }
