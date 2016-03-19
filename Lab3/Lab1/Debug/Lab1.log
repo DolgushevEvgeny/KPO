@@ -1,0 +1,36 @@
+﻿Сборка начата 19.03.2016 19:47:39.
+     1>Проект "E:\STUDY\3_COURSE\КПО Петров Д.И. 3 курс 2 семестр\Lab3\Lab1\Lab1.vcxproj" в узле 2 (целевые объекты Rebuild).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(381,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Lab1.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"Debug\Lab3.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt stdafx.cpp
+         stdafx.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\Lab3.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Circle.cpp CircleCreator.cpp Lab3.cpp Parser.cpp Rectangle.cpp RectangleCreator.cpp Shape.cpp Triangle.cpp TriangleCreator.cpp
+         TriangleCreator.cpp
+         Triangle.cpp
+         Shape.cpp
+         RectangleCreator.cpp
+         Rectangle.cpp
+     1>e:\study\3_course\кпо петров д.и. 3 курс 2 семестр\lab3\lab1\rectangle.cpp(8): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+         Parser.cpp
+         Lab3.cpp
+         CircleCreator.cpp
+         Circle.cpp
+     1>e:\study\3_course\кпо петров д.и. 3 курс 2 семестр\lab3\lab1\circle.cpp(9): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+         Создание кода...
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\STUDY\3_COURSE\КПО Петров Д.И. 3 курс 2 семестр\Lab3\Debug\Lab3.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:\STUDY\3_COURSE\КПО Петров Д.И. 3 курс 2 семестр\Lab3\Debug\Lab3.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\STUDY\3_COURSE\КПО Петров Д.И. 3 курс 2 семестр\Lab3\Debug\Lab3.lib" /MACHINE:X86 Debug\Circle.obj
+         Debug\CircleCreator.obj
+         Debug\Lab3.obj
+         Debug\Parser.obj
+         Debug\Rectangle.obj
+         Debug\RectangleCreator.obj
+         Debug\Shape.obj
+         Debug\stdafx.obj
+         Debug\Triangle.obj
+         Debug\TriangleCreator.obj
+         Lab1.vcxproj -> E:\STUDY\3_COURSE\КПО Петров Д.И. 3 курс 2 семестр\Lab3\Debug\Lab3.exe
+     1>Сборка проекта "E:\STUDY\3_COURSE\КПО Петров Д.И. 3 курс 2 семестр\Lab3\Lab1\Lab1.vcxproj" завершена (целевые объекты Rebuild).
+
+Сборка успешно завершена.
+
+Затраченное время: 00:00:02.03
