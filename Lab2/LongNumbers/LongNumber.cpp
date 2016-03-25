@@ -7,6 +7,54 @@
 
 using namespace std;
 
+CLongNumber Sqr(const CLongNumber &number)
+{
+	return number * number;
+}
+
+CLongNumber Sqrt(const CLongNumber &number)
+{
+	if (number.GetVector().size() == 1 && number.GetVector()[0] == 0)
+	{
+		return CLongNumber();
+	}
+
+	CLongNumber start;
+	CLongNumber end = number;
+	CLongNumber middle;
+	for (;;)
+	{
+		middle = (start + end) / CLongNumber(2);
+		if (middle * middle == number)
+		{
+			return middle;
+		}
+		else 
+		{
+			if (middle * middle > number)
+			{
+				if (end == middle)
+				{
+					return middle;
+				}
+				end = middle;
+			}
+			else
+			{
+				if (middle * middle < number)
+				{
+					if (start == middle)
+					{
+						return middle;
+					}
+				}
+				start = middle;
+			}
+		}
+	}
+}
+
+
 CLongNumber::CLongNumber()
 	: m_isPositive(true)
 {
@@ -265,26 +313,26 @@ void CLongNumber::Increase()
 	}
 }
 
-const bool operator < (const CLongNumber &num1, const CLongNumber &num2)
+const bool CLongNumber::operator < (CLongNumber const & other) const
 {
 	size_t i = 0;
-	if (num1.GetSize() < num2.GetSize())
+	if (m_num.size() < other.m_num.size())
 	{
 		return true;
 	}
-	if (num1.GetSize() > num2.GetSize())
+	if (m_num.size() > other.m_num.size())
 	{
 		return false;
 	}
-	if (num1.GetSize() == num2.GetSize())
+	if (m_num.size() == other.m_num.size())
 	{
-		for (i = num2.GetVector().size() - 1; i < -1; --i)
+		for (int i = static_cast<int>(m_num.size() - 1); i >= 0; --i)
 		{
-			if (num1.GetVector()[i] < num2.GetVector()[i])
+			if (m_num[i] < other.m_num[i])
 			{
 				return true;
 			}
-			if (num1.GetVector()[i] > num2.GetVector()[i])
+			if (m_num[i] > other.m_num[i])
 			{
 				return false;
 			}
@@ -294,7 +342,7 @@ const bool operator < (const CLongNumber &num1, const CLongNumber &num2)
 	return false;
 }
 
-bool const CLongNumber::operator > (CLongNumber const & other) const
+const bool CLongNumber::operator > (CLongNumber const & other) const
 {
 	if (m_num.size() > other.m_num.size())
 	{
@@ -333,9 +381,11 @@ const bool operator >= (const CLongNumber &num1, const CLongNumber &num2)
 
 const bool operator == (const CLongNumber &num1, const CLongNumber &num2)
 {
-	if (num1.GetSize() == num2.GetSize())
+	if (num1.GetVector().size() == num2.GetVector().size())
 	{
-		return equal(num1.GetVector().begin(), num1.GetVector().end(), num2.GetVector().begin(), equal_to<unsigned>());
+		vector<int> tempNum1 = num1.GetVector();
+		vector<int> tempNum2 = num2.GetVector();
+		return equal(tempNum1.begin(), tempNum1.end(), tempNum2.begin(), equal_to<unsigned>());
 	}
 
 	return false;

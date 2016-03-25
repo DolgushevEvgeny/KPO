@@ -16,7 +16,8 @@ public:
 	const CLongNumber operator * (CLongNumber const & other) const;
 	const CLongNumber operator / (const CLongNumber &other) const;
 
-	bool const operator > (CLongNumber const & other) const;
+	const bool operator > (CLongNumber const & other) const;
+	const bool operator < (CLongNumber const & other) const;
 	bool const operator <= (CLongNumber const & other) const;
 
 	size_t GetSize() const;
@@ -32,6 +33,8 @@ private:
 	std::vector<int> m_num;
 };
 
-const bool operator < (const CLongNumber &num1, const CLongNumber &num2);
 const bool operator >= (const CLongNumber &num1, const CLongNumber &num2);
 const bool operator == (const CLongNumber &num1, const CLongNumber &num2);
+
+CLongNumber Sqr(const CLongNumber &number);
+CLongNumber Sqrt(const CLongNumber &number);

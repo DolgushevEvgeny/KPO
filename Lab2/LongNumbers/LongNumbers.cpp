@@ -226,19 +226,52 @@ void Test()
 			cout << e.what() << endl;
 		}
 	}
+	{
+		pair<vector<int>, bool> num;
+		num.first = { 8, 9, 6, 3, 4, 5, 9, 7, 8, 9 };
+		num.second = true;
+		reverse(num.first.begin(), num.first.end());
+
+		CLongNumber result = Sqr(num);
+		vector<int> test = { 8, 0, 3, 4, 3, 6, 1, 1, 3, 8, 9, 0, 1, 9, 9, 2, 4, 5, 2, 1 };
+		reverse(test.begin(), test.end());
+		assert(result.GetVector() == test);
+	}
+	{
+		pair<vector<int>, bool> num;
+		num.first = { 8, 0, 3, 4, 3, 6, 1, 1, 3, 8, 9, 0, 1, 9, 9, 2, 4, 5, 2, 1 };
+		num.second = true;
+		reverse(num.first.begin(), num.first.end());
+
+		CLongNumber result = Sqrt(num);
+		vector<int> test = { 8, 9, 6, 3, 4, 5, 9, 7, 8, 9 };
+		reverse(test.begin(), test.end());
+		assert(result.GetVector() == test);
+	}
+	{
+		pair<vector<int>, bool> num;
+		num.first = { 5, 9, 7, 5, 6, 3, 9, 8, 5, 8, 7, 3, 5, 7, 6, 9, 3, 4, 7, 4 };
+		num.second = true;
+		reverse(num.first.begin(), num.first.end());
+
+		CLongNumber result = Sqrt(num);
+		vector<int> test = { 7, 7, 3, 0, 2, 2, 6, 2, 9, 5 };
+		reverse(test.begin(), test.end());
+		assert(result.GetVector() == test);
+	}
 }
 
 int main(int argc, char* argv[])
 {
-	ifstream inputFile;
-	inputFile.open("input.txt", ifstream::in);
+	//ifstream inputFile;
+	//inputFile.open("input.txt", ifstream::in);
 
-	ofstream outputFile;
-	outputFile.open("output.txt", ofstream::out);
+	//ofstream outputFile;
+	//outputFile.open("output.txt", ofstream::out);
 
-	//Test();
+	Test();
 
-	while (inputFile.good())
+	/*while (inputFile.good())
 	{
 		string inputLine;
 		getline(inputFile, inputLine);
@@ -251,7 +284,7 @@ int main(int argc, char* argv[])
 		case Operation::MULTIPLICATION: Mult(CLongNumber(parser.GetNumbers().first), CLongNumber(parser.GetNumbers().second), parser, outputFile); break;
 		case Operation::DIVISION: Div(CLongNumber(parser.GetNumbers().first), CLongNumber(parser.GetNumbers().second), parser, outputFile); break;
 		}
-	}
+	}*/
 
 	return 0;
 }
