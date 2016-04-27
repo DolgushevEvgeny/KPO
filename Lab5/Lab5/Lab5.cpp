@@ -55,7 +55,7 @@ static void PrintShapeInfo(const CShape &shape, ostream &out)
 	CShapeAreaVisitor areaVisitor;
 	shape.Accept(areaVisitor);
 
-	out << shape.GetType() << ": P=" << perimeterVisitor.result.ToString() << "; S=" << areaVisitor.result.ToString() << endl;
+	out << perimeterVisitor.GetValue() << areaVisitor.GetValue() << endl;
 }
 
 int main(int argc, char* argv[])

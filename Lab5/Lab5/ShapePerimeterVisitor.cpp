@@ -6,15 +6,20 @@
 
 void CShapePerimeterVisitor::Visit(CCircle const& shape)
 {
-	result = CLongNumber("2") * shape.m_radius * 314 / 100;
+	m_result = "CIRCLE: P=" + shape.GetPerimetr().ToString();
 }
 
 void CShapePerimeterVisitor::Visit(CRectangle const& shape)
 {
-	result = CLongNumber("2") * (shape.m_sideA + shape.m_sideB);
+	m_result = "RECTANGLE: P=" + shape.GetPerimetr().ToString();
 }
 
 void CShapePerimeterVisitor::Visit(CTriangle const& shape)
 {
-	result = shape.m_sideA + shape.m_sideA + shape.m_sideC;
+	m_result = "TRIANGLE: P=" + shape.GetPerimetr().ToString();
+}
+
+std::string CShapePerimeterVisitor::GetValue()
+{
+	return m_result;
 }

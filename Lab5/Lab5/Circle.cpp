@@ -14,7 +14,7 @@ CCircle::CCircle(const Point &center, const CLongNumber &radius)
 	m_shapeType = "CIRCLE";
 }
 
-void CCircle::Accept(CShapeVisitor &visitor)
+void CCircle::Accept(CShapeVisitor &visitor) const
 {
 	return visitor.Visit(*this);
 }

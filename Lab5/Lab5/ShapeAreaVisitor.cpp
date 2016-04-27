@@ -8,19 +8,20 @@
 
 void CShapeAreaVisitor::Visit(CCircle const& shape)
 {
-	result = CFunctions::Sqr(shape.m_radius) * 314 / 100;
+	m_result = "; S=" + shape.GetSquare().ToString();
 }
 
 void CShapeAreaVisitor::Visit(CRectangle const& shape)
 {
-	result = shape.m_sideA * shape.m_sideB;
+	m_result = "; S=" + shape.GetSquare().ToString();
 }
 
 void CShapeAreaVisitor::Visit(CTriangle const& shape)
 {
-	CShapePerimeterVisitor perimeterVisitor;
-	shape.Accept(perimeterVisitor);
-	const CLongNumber semiperimeter = perimeterVisitor.result / CLongNumber("2");
-	
-	result = CFunctions::Sqrt(semiperimeter * (semiperimeter - shape.m_sideA) * (semiperimeter - shape.m_sideB) * (semiperimeter - shape.m_sideC));
+	m_result = "; S=" + shape.GetSquare().ToString();
+}
+
+std::string CShapeAreaVisitor::GetValue()
+{
+	return m_result;
 }

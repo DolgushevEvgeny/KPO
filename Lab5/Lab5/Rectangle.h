@@ -6,7 +6,7 @@ class CRectangle : public CShape
 {
 public:
 	CRectangle(Point A, Point B);
-	void Accept(CShapeVisitor &visitor);
+	void Accept(CShapeVisitor &visitor) const;
 	~CRectangle();
 
 	CLongNumber m_sideA;

@@ -14,7 +14,7 @@ CRectangle::CRectangle(Point A, Point B)
 	m_shapeType = "RECTANGLE";
 }
 
-void CRectangle::Accept(CShapeVisitor &visitor)
+void CRectangle::Accept(CShapeVisitor &visitor) const
 {
 	return visitor.Visit(*this);
 }
